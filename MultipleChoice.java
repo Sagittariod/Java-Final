@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import javax.swing.*;
+import java.io.*;
 
 public class MultipleChoice 
 {
@@ -7,10 +10,10 @@ public class MultipleChoice
         Scanner scan = new Scanner(System.in);
         
         String[] trueAnswers = {"a","c"};
-        String[] userAnswers = {""};
-        String[] questions = {"This is the most common species of primates.", "Test Question 2"};
-        String[] potentialChoices = {"a) Homo sapiens, b) Homo neanderthalensis, c) Ateles, d) Lemuroidea", "c)"};
-        String[] generateHint = {"This species is most likely the one currently taking this quiz.", "What hint could I possibly give?"};
+        ArrayList<String> userAnswers = new ArrayList();
+        String[] questions = {"This is the most common species of primates.", "This primate is the largest of them all."};
+        String[] potentialChoices = {"a) Humans, b) Neanderthals, c) Spider Monkeys, d) Lemurs", "a) Baboons, b) Orangutans, c) Gorillas, d) Mandrills"};
+        String[] generateHint = {"This species is most likely the one currently taking this quiz.", "The scientific name of this species is also the name they are typically and informally called."};
         
         int score = 0;
         
@@ -23,16 +26,16 @@ public class MultipleChoice
         {
             System.out.println(questions[i]);
             System.out.println(potentialChoices[i]);
-            userAnswers[i] = scan.next();
+            String tempAnswer = scan.next();
+            userAnswers.add(tempAnswer);
             
-            if(userAnswers[i].equalsIgnoreCase("Hint"))
+            if(userAnswers.get(i).equalsIgnoreCase("Hint"))
             {
                 System.out.println(generateHint[i]);
-                String tempAnswer = scan.next();
-                userAnswers[i].add(tempAnswer);
+                tempAnswer = scan.next();
+                userAnswers.add(tempAnswer);
             }
-            
-            else if(userAnswers[i].equalsIgnoreCase(trueAnswers[i]))
+            else if(userAnswers.get(i).equalsIgnoreCase(trueAnswers[i]))
             {
                 score++;
             }
@@ -43,7 +46,8 @@ public class MultipleChoice
             
         }
 
-        System.out.println("Final Score: " + score);
+        System.out.println("Final Score: " + score + " out of 10. Press any key to exit.");
+        scan.next();
     }
 
 }
